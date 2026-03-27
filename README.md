@@ -2,6 +2,20 @@
 
 A Django REST Framework service that monitors incoming content, scores keyword relevance, and creates reviewable flags with suppression logic to prevent noisy re-flagging.
 
+## Content Source
+
+This project uses **both** of the following sources:
+
+- **Mock JSON dataset** - used as the default source. Contains 6 hand-crafted articles
+  that are guaranteed to match the example keywords (python, django, automation, data pipeline).
+  Always runs even if the internet is unavailable.
+
+- **HackerNews public API** - used as a real live source. Fetches the top 10 stories
+  from https://hacker-news.firebaseio.com. No API key required. If HackerNews is
+  unreachable, the scan still completes using the mock dataset.
+
+Both sources are combined and scanned together on every `POST /api/scan/` call.
+
 ## Tech Stack
 
 - Python
